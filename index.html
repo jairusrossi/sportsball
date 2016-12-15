@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Deplorable Teams</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ECEBDA;
+            font-family: "Noto Sans", sans-serif;
+            color: #3d3d3d;
+        }
+
+        section {
+            width: 960px;
+            margin: 20px auto;
+        }
+
+        h1 {
+            width: 960px;
+            margin: 20px auto;
+            font-family: "Lora", serif;
+            letter-spacing: .04em;
+        }
+
+        h2 {
+            font-family: "Lora", serif;
+            letter-spacing: .04em;
+        }
+
+        p {
+            font-size: .8em;
+            line-height: 1.5em;
+        }
+
+       
+     
+        .wisconsin-red{
+            color: #FF3333;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+    
+        .braves-blue{
+            color: #3333FF;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .flyers-orange{
+            color: #ff8000;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        #map {
+            width: 750px;
+            height: 540px;
+            margin: 10px auto;
+            border: 2px solid #d3d3d3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1><center>Cities that Ruined Sportsball</center></h1>
+
+    <div id='map'></div>
+
+
+    <section>
+
+        <p>Map authored by Jairus Rossi</p>
+
+        <p>This map displays three cities which have ruined my experience of particular sporting events.  Most recently, the Wisconsin Badgers basketball team ended Kentucky's unbeaten run in the <a href="https://www.youtube.com/watch?v=1oNCgH57co8">2015 Final Four</a>.  My brother-in-law took me to the game in Indianapolis. After the game was over, Badgers fans were relentlessly heckling any Kentucky fan.  Also, random kids from Indianapolis, some of whom were walking around town after their prom, were also being obnoxious.  The only people who weren't jerks were Duke fans.  Which was a major surprise.  Maybe Duke is ok. This all got my goat, even as I only pay attention to UK basketball because I live here and because my in-laws love them Cayyts! </p>
+        
+        <p>I'd much rather watch hockey.  Growing up, I loved Mario Lemieux of the Pittsburgh Penguins. His vision on the ice was unsurpassed, usually thinking 3 or 4 plays ahead of the game. The Flyers' goon-like tactics, however, were the bane of Lemieux's <a href="https://www.youtube.com/watch?v=l0WbDpbuXVM">free-flowing, artistic hockey</a>. The Flyers knocked him out of the playoffs in 1997 and he retired following the game.  Earlier in his career, he beat Hodgkin's lymphoma and won the <a href="https://www.nhl.com/news/part-3-amazing-pace-gives-lemieux-scoring-title/c-658118">scoring title</a> even while missing 20 games due to radiation and chemotherapy. But he was sick of dealing with what amounted to ice wrestling, due in part to teams like the Flyers.  Two years later, the same Flyers beat my Penguins in a 5 overtime epic because one Flyer scored by getting hit in the head with an errant shot.  No skill, just dumb luck.  I watched this in my dorm lounge with a bunch of annoying Flyers fans from Philly and NJ.  It was a 7 hour game and I had 2 finals due the next day.  I did not do well on those finals because hockey kept me up until 2:30 am. </p> 
+        
+        <p> The Braves gave me my first terrible sports memory. For the first time in my life, my parents let me stay up after 10 to watch Game 7 of the NLCS between the Pirates and Braves.  This was one of the Pirates' best teams.  They had Barry Bonds, Bobby Bonilla, Andy Van Slyke, and Doug Drabek.  They won a lot.  They made it to the bottom of the 9th with a lead, but lost when Bonds couldn't throw out the lead-footed Sid Bream on a <a href="https://www.youtube.com/watch?v=FgjIVvEQo_o">shallow single</a>.  Prior to that play, Van Slyke told Bonds to move up closer to the infield, but Bonds flipped him the bird.  Had he listened, he'd have been in position to hold the runner.  Following the game, the Pirates were dismantled, Bonds moved to San Francisco and started doing lots of steroids, and I lost interest in baseball.  It took 21 years until the Pirates had another winning season.  </p>
+            
+
+    </section>
+
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+
+    <script>
+        var map = L.map('map', {
+            center: [41.66, -83.5552],
+            zoom: 5,
+        });
+
+        var tiles = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        });
+        map.addLayer(tiles);
+
+        
+
+        var cities = [{
+            name: "Madison",
+            properties: {
+                coordinates: [43.0731, -89.4012],
+                population: 243344,
+                state: "WI",
+                logo: 'lab-06-images/badgers.png'
+            }},{
+            name:"Philadelphia",
+            properties: {
+                coordinates:[39.9526,-75.1652],
+                population:1533000,
+                state: "PA",
+                logo: 'lab-06-images/flyers.png'
+        }},{
+            name:"Atlanta",
+            properties:{
+                coordinates:[33.7490,-84.3880],
+                population: 447841,
+                state:"GA",
+                logo: 'lab-06-images/braves.png'
+            }
+        }];
+        
+    
+    
+            for(var i=0; i<cities.length; i++){
+            var props = cities[i].properties;
+            var popup = buildPopup(cities[i], props.population, props.state, props.logo);
+            L.marker(props.coordinates).addTo(map)
+                .bindPopup(popup);
+            
+            }
+   
+        function buildPopup (cities, population, state, logo){
+            if (state=="WI"){
+                var colorClass = "wisconsin-red";
+                
+            }else{
+            if (state=="GA"){
+                var colorClass = "braves-blue";
+                
+            }else{
+            if (state=="PA"){
+                var colorClass = "flyers-orange";
+            }}
+                
+            }
+            return "<div class='"+colorClass+"'><b>"+cities.name +"</b><br>"+
+                "<b>Population</b>: "+population.toLocaleString()+"<div>"+"<img class='props.logo' src='"+ logo +"'>";
+        }
+           
+       
+  
+    </script>
+
+</body>
+
+</html>
